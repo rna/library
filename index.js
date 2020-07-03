@@ -7,7 +7,7 @@ window.onload = function () {
       pages: 182,
       readStatus: "unread",
       action: "Delete",
-    },
+    }
   ];
 
   /* create table */
@@ -35,19 +35,23 @@ window.onload = function () {
     }
   }
 
-  let table = document.querySelector("table");
-  let data = Object.keys(myLibrary[0]);
+  function displayTable(){
+    let table = document.querySelector("table");
+    let data = Object.keys(myLibrary[0]);
 
-  generateTableHead(table, data);
-  generateTable(table, myLibrary);
+    generateTableHead(table, data);
+    generateTable(table, myLibrary);
+  }
+
+  displayTable();
 
   function Book(title, author, pages) {
-    //this.slno = slno;
+    // this.slno = slno;
     this.title = title;
     this.author = author;
     this.pages = pages;
-    //this.readStatus = readStatus;
-    //this.action = action;
+    // this.readStatus = readStatus;
+    // this.action = action;
   }
 
   // New Book Form Generation
@@ -56,41 +60,64 @@ window.onload = function () {
   button.addEventListener("click", function () {
     form = document.createElement("form");
     form.name = "newBookForm";
-    form.method = "POST";
+    form.id = "newBookForm";
 
     title_field = document.createElement("input");
     title_field.type = "text";
     title_field.placeholder = "Enter Book Title";
-    title_field.name = "titleInput";
+    title_field.name = "title";
+    title_field.id = "title";
     form.appendChild(title_field);
 
     author_field = document.createElement("input");
     author_field.type = "text";
     author_field.placeholder = "Enter Author name";
-    author_field.name = "authorInput";
+    author_field.name = "author";
+    author_field.id = "author";
     form.appendChild(author_field);
 
     pages_field = document.createElement("input");
     pages_field.type = "text";
     pages_field.placeholder = "Enter No of Pages";
-    pages_field.name = "pagesInput";
+    pages_field.name = "pages";
+    pages_field.id = "pages";
     form.appendChild(pages_field);
 
     submit_button = document.createElement("input");
     submit_button.type = "submit";
     submit_button.value = "Add Book";
     form.appendChild(submit_button);
-
+    
     document.getElementById("newBookForm").appendChild(form);
   });
 
-  function addBookToLibrary() {
-    //event.preventDefault();
-    const title = document.getElementsByName('titleInput').value;
-    const author = document.getElementsByName('authorInput').value;
-    const pages = document.getElementsByName('pagesInput').value;
-    const newbook = new Book(title, author, pages);
+
+  // Add Book to Library
+  let form = document.getElementById('newBookForm');  
+  form.addEventListener('submit',function(e){
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+    let newbook = new Book(title, author, pages);
     myLibrary.push(newbook);
-    console.log(title, author, pages);
+    addBooktoTable(newbook);
+    console.log(myLibrary);
+    e.preventDefault();
+  })
+
+
+  function addBooktoTable(book){
+    let table = document.querySelector("table");
+    let row = table.insertRow();
+    
+    row.innerHTML = `
+        <td>${myLibrary.length+1}</td>
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>${book.pages}</td>
+        <td>read</td>
+        <td>Delete</td>
+        `
+    table.appendChild(row);
   }
 };
