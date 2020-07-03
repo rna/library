@@ -45,12 +45,11 @@ window.onload = function () {
 
   displayTable();
 
-  function Book(title, author, pages) {
-    // this.slno = slno;
+  function Book(title, author, pages, readStatus) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    // this.readStatus = readStatus;
+    this.readStatus = readStatus;
     // this.action = action;
   }
 
@@ -83,6 +82,19 @@ window.onload = function () {
     pages_field.id = "pages";
     form.appendChild(pages_field);
 
+    read_field = document.createElement("select");
+    read_option1 = document.createElement("option");
+    read_option2 = document.createElement("option");
+    read_option1.appendChild(document.createTextNode('Read'))
+    read_option1.value='Read';
+    read_option2.appendChild(document.createTextNode('Unread'))
+    read_option2.value='Unread';
+    read_field.appendChild(read_option1)
+    read_field.appendChild(read_option2)
+    read_field.name = "read status";
+    read_field.id = "readStatus";
+    form.appendChild(read_field);
+
     submit_button = document.createElement("input");
     submit_button.type = "submit";
     submit_button.value = "Add Book";
@@ -98,7 +110,8 @@ window.onload = function () {
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
-    let newbook = new Book(title, author, pages);
+    const readStatus = document.getElementById('readStatus').value;
+    let newbook = new Book(title, author, pages,readStatus);
     myLibrary.push(newbook);
     addBooktoTable(newbook);
     console.log(myLibrary);
@@ -111,11 +124,11 @@ window.onload = function () {
     let row = table.insertRow();
     
     row.innerHTML = `
-        <td>${myLibrary.length+1}</td>
+        <td>${myLibrary.length}</td>
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td>${book.pages}</td>
-        <td>read</td>
+        <td>${book.readStatus}</td>
         <td>Delete</td>
         `
     table.appendChild(row);
