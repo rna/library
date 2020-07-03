@@ -42,12 +42,12 @@ window.onload = function () {
   generateTable(table, myLibrary);
 
   function Book(title, author, pages) {
-    this.slno = slno;
+    //this.slno = slno;
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.readStatus = readStatus;
-    this.action = action;
+    //this.readStatus = readStatus;
+    //this.action = action;
   }
 
   // New Book Form Generation
@@ -57,7 +57,6 @@ window.onload = function () {
     form = document.createElement("form");
     form.name = "newBookForm";
     form.method = "POST";
-    form.action = addBookToLibrary();
 
     title_field = document.createElement("input");
     title_field.type = "text";
@@ -77,13 +76,21 @@ window.onload = function () {
     pages_field.name = "pagesInput";
     form.appendChild(pages_field);
 
-    submit_button = document.createElement("button");
+    submit_button = document.createElement("input");
     submit_button.type = "submit";
-    submit_button.innerHTML = "Add Book";
+    submit_button.value = "Add Book";
     form.appendChild(submit_button);
 
     document.getElementById("newBookForm").appendChild(form);
   });
 
-  function addBookToLibrary() {}
+  function addBookToLibrary() {
+    //event.preventDefault();
+    const title = document.getElementsByName('titleInput').value;
+    const author = document.getElementsByName('authorInput').value;
+    const pages = document.getElementsByName('pagesInput').value;
+    const newbook = new Book(title, author, pages);
+    myLibrary.push(newbook);
+    console.log(title, author, pages);
+  }
 };
