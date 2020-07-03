@@ -45,12 +45,13 @@ window.onload = function () {
 
   displayTable();
 
-  function Book(title, author, pages, readStatus) {
+  function Book(slno, title, author, pages, readStatus, action) {
+    this.slno = slno
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.readStatus = readStatus;
-    // this.action = action;
+    this.action = action;
   }
 
   // New Book Form Generation
@@ -107,30 +108,49 @@ window.onload = function () {
   // Add Book to Library
   let form = document.getElementById('newBookForm');  
   form.addEventListener('submit',function(e){
+    const slno = myLibrary.length+1;
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
     const readStatus = document.getElementById('readStatus').value;
-    let newbook = new Book(title, author, pages,readStatus);
+    const action = deleleLink(slno);
+    let newbook = new Book(slno, title, author, pages,readStatus,action);
     myLibrary.push(newbook);
     addBooktoTable(newbook);
     console.log(myLibrary);
     e.preventDefault();
   })
 
-
+// Display book in table
   function addBooktoTable(book){
     let table = document.querySelector("table");
     let row = table.insertRow();
     
     row.innerHTML = `
-        <td>${myLibrary.length}</td>
+        <td>${book.slno}</td>
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td>${book.pages}</td>
         <td>${book.readStatus}</td>
-        <td>Delete</td>
+        <td>${book.action}</td>
         `
     table.appendChild(row);
+  }
+
+
+// Delete a Book
+
+  function deleteBook(i){
+    myLibrary.splice(i,1);
+    let table = document.querySelector("table");
+    table.deleteRow(i);
+  }
+
+  function deleleLink(num){
+    let tag = document.createElement(a);
+    let text = document.createTextNode("Delete");
+    tag.appendChild(text);
+    tag.href = `javascript:deleteBook(${num})`
+    return tag
   }
 };
