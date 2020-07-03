@@ -1,60 +1,89 @@
-window.onload = function() {
-  /* Add your logic here */
+window.onload = function () {
   let myLibrary = [
     {
-      slno:1,
-      title:"Alchemist",
-      author:"Paulo Coehlo",
-      pages:182,
-      readStatus:"unread",
-      action:"Delete"
-    }
+      slno: 1,
+      title: "Alchemist",
+      author: "Paulo Coehlo",
+      pages: 182,
+      readStatus: "unread",
+      action: "Delete",
+    },
   ];
-  
-/* create table */
 
+  /* create table */
 
-function generateTableHead(table, data) {
-  let thead = table.createTHead();
-  let row = thead.insertRow();
+  function generateTableHead(table, data) {
+    let thead = table.createTHead();
+    let row = thead.insertRow();
 
-
-  for (let key of data) {
-    let th = document.createElement("th");
-    let text = document.createTextNode(key);
-    th.appendChild(text);
-    row.appendChild(th);
-  }
-}
-
-function generateTable(table, data) {
-  for (let element of data) {
-    let row = table.insertRow();
-    for (key in element) {
-      let cell = row.insertCell();
-      let text = document.createTextNode(element[key]);
-      cell.appendChild(text);
+    for (let key of data) {
+      let th = document.createElement("th");
+      let text = document.createTextNode(key);
+      row.appendChild(th);
+      th.appendChild(text);
     }
   }
-}
-let table = document.querySelector("table");
-let data = Object.keys(myLibrary[0]);
-generateTable(table, myLibrary);
-generateTableHead(table, data);
 
-
-
-
-  function Book(title,author,pages) {
-      this.slno = slno
-      this.title =  title
-      this.author =  author
-      this.pages = pages
-      this.readStatus = readStatus
-      this.action = action
+  function generateTable(table, data) {
+    for (let element of data) {
+      let row = table.insertRow();
+      for (key in element) {
+        let cell = row.insertCell();
+        let text = document.createTextNode(element[key]);
+        cell.appendChild(text);
+      }
+    }
   }
-  
-  function addBookToLibrary(){
-  
+
+  let table = document.querySelector("table");
+  let data = Object.keys(myLibrary[0]);
+
+  generateTableHead(table, data);
+  generateTable(table, myLibrary);
+
+  function Book(title, author, pages) {
+    this.slno = slno;
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readStatus = readStatus;
+    this.action = action;
   }
-  }
+
+  // New Book Form Generation
+  let button = document.getElementById("newBook");
+
+  button.addEventListener("click", function () {
+    form = document.createElement("form");
+    form.name = "newBookForm";
+    form.method = "POST";
+    form.action = addBookToLibrary();
+
+    title_field = document.createElement("input");
+    title_field.type = "text";
+    title_field.placeholder = "Enter Book Title";
+    title_field.name = "titleInput";
+    form.appendChild(title_field);
+
+    author_field = document.createElement("input");
+    author_field.type = "text";
+    author_field.placeholder = "Enter Author name";
+    author_field.name = "authorInput";
+    form.appendChild(author_field);
+
+    pages_field = document.createElement("input");
+    pages_field.type = "text";
+    pages_field.placeholder = "Enter No of Pages";
+    pages_field.name = "pagesInput";
+    form.appendChild(pages_field);
+
+    submit_button = document.createElement("button");
+    submit_button.type = "submit";
+    submit_button.innerHTML = "Add Book";
+    form.appendChild(submit_button);
+
+    document.getElementById("newBookForm").appendChild(form);
+  });
+
+  function addBookToLibrary() {}
+};
