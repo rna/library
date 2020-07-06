@@ -137,9 +137,9 @@ let myLibrary = [
 ];
 
 // Delete a Book
-
 function deleteBook(i,x) {
-  myLibrary.splice(i, 1);
+  index = myLibrary.findIndex(e => e.slno==i);
+  myLibrary.splice(index, 1);
   let table = x.parentNode.parentNode.parentNode;
   let row = x.parentNode.parentNode.rowIndex;
 
