@@ -40,7 +40,7 @@ window.onload = function () {
     this.author = author;
     this.pages = pages;
     this.readStatus = readStatus;
-    this.action = `<a href="javascript:deleteBook(${slno})">Delete</a>`;
+    this.action = `<button onclick="javascript:deleteBook(${slno},this)">X</button>`;
   }
 
   // New Book Form Generation
@@ -138,8 +138,10 @@ let myLibrary = [
 
 // Delete a Book
 
-function deleteBook(i) {
+function deleteBook(i,x) {
   myLibrary.splice(i, 1);
-  let table = document.querySelector("table");
-  table.deleteRow(i);
+  let table = x.parentNode.parentNode.parentNode;
+  let row = x.parentNode.parentNode.rowIndex;
+
+  table.deleteRow(row);
 }
