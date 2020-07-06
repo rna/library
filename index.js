@@ -39,7 +39,7 @@ window.onload = function () {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.readStatus = readStatus;
+    this.readStatus = `<button onclick="javascript:readstat(this)">${readStatus}</button>`;
     this.action = `<button onclick="javascript:deleteBook(${slno},this)">X</button>`;
   }
 
@@ -118,7 +118,7 @@ window.onload = function () {
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td>${book.pages}</td>
-        <td>${book.readStatus}</td>
+        <td id="stat">${book.readStatus}</td>
         <td>${book.action}</td>
         `;
     table.appendChild(row);
@@ -144,4 +144,12 @@ function deleteBook(i,x) {
   let row = x.parentNode.parentNode.rowIndex;
 
   table.deleteRow(row);
+}
+
+function readstat(r) {
+  if (r.innerHTML == "unread") {
+    r.innerHTML = "read";
+  } else {
+    r.innerHTML = "unread";
+  }
 }
