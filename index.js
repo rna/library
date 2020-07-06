@@ -1,15 +1,4 @@
 window.onload = function () {
-  let myLibrary = [
-    {
-      slno: 1,
-      title: "Alchemist",
-      author: "Paulo Coehlo",
-      pages: 182,
-      readStatus: "unread",
-      action: "Delete",
-    }
-  ];
-
   /* create table */
 
   function generateTableHead(table, data) {
@@ -35,23 +24,23 @@ window.onload = function () {
     }
   }
 
-  function displayTable(){
+  function displayTable() {
     let table = document.querySelector("table");
-    let data = Object.keys(myLibrary[0]);
+    let headerData = ["Sl.no", "Title", "Author", "Pages", "Status", "Action"];
 
-    generateTableHead(table, data);
+    generateTableHead(table, headerData);
     generateTable(table, myLibrary);
   }
 
   displayTable();
 
-  function Book(slno, title, author, pages, readStatus, action) {
-    this.slno = slno
+  function Book(slno, title, author, pages, readStatus) {
+    this.slno = slno;
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.readStatus = readStatus;
-    this.action = action;
+    this.action = `<a href="javascript:deleteBook(${slno})">Delete</a>`;
   }
 
   // New Book Form Generation
@@ -86,12 +75,12 @@ window.onload = function () {
     read_field = document.createElement("select");
     read_option1 = document.createElement("option");
     read_option2 = document.createElement("option");
-    read_option1.appendChild(document.createTextNode('Read'))
-    read_option1.value='Read';
-    read_option2.appendChild(document.createTextNode('Unread'))
-    read_option2.value='Unread';
-    read_field.appendChild(read_option1)
-    read_field.appendChild(read_option2)
+    read_option1.appendChild(document.createTextNode("Read"));
+    read_option1.value = "Read";
+    read_option2.appendChild(document.createTextNode("Unread"));
+    read_option2.value = "Unread";
+    read_field.appendChild(read_option1);
+    read_field.appendChild(read_option2);
     read_field.name = "read status";
     read_field.id = "readStatus";
     form.appendChild(read_field);
@@ -100,32 +89,30 @@ window.onload = function () {
     submit_button.type = "submit";
     submit_button.value = "Add Book";
     form.appendChild(submit_button);
-    
+
     document.getElementById("newBookForm").appendChild(form);
   });
 
-
   // Add Book to Library
-  let form = document.getElementById('newBookForm');  
-  form.addEventListener('submit',function(e){
-    const slno = myLibrary.length+1;
-    const title = document.getElementById('title').value;
-    const author = document.getElementById('author').value;
-    const pages = document.getElementById('pages').value;
-    const readStatus = document.getElementById('readStatus').value;
-    const action = deleleLink(slno);
-    let newbook = new Book(slno, title, author, pages,readStatus,action);
+  let form = document.getElementById("newBookForm");
+  form.addEventListener("submit", function (e) {
+    const slno = myLibrary.length + 1;
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
+    const readStatus = document.getElementById("readStatus").value;
+    let newbook = new Book(slno, title, author, pages, readStatus);
     myLibrary.push(newbook);
     addBooktoTable(newbook);
     console.log(myLibrary);
     e.preventDefault();
-  })
+  });
 
-// Display book in table
-  function addBooktoTable(book){
+  // Display book in table
+  function addBooktoTable(book) {
     let table = document.querySelector("table");
     let row = table.insertRow();
-    
+
     row.innerHTML = `
         <td>${book.slno}</td>
         <td>${book.title}</td>
@@ -133,24 +120,26 @@ window.onload = function () {
         <td>${book.pages}</td>
         <td>${book.readStatus}</td>
         <td>${book.action}</td>
-        `
+        `;
     table.appendChild(row);
   }
+};
 
+let myLibrary = [
+  // {
+  //   slno: 1,
+  //   title: "Alchemist",
+  //   author: "Paulo Coehlo",
+  //   pages: 182,
+  //   readStatus: "unread",
+  //   action: "Delete",
+  // }
+];
 
 // Delete a Book
 
-  function deleteBook(i){
-    myLibrary.splice(i,1);
-    let table = document.querySelector("table");
-    table.deleteRow(i);
-  }
-
-  function deleleLink(num){
-    let tag = document.createElement(a);
-    let text = document.createTextNode("Delete");
-    tag.appendChild(text);
-    tag.href = `javascript:deleteBook(${num})`
-    return tag
-  }
-};
+function deleteBook(i) {
+  myLibrary.splice(i, 1);
+  let table = document.querySelector("table");
+  table.deleteRow(i);
+}
