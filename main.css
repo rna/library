@@ -51,12 +51,25 @@ tr {
     background-color: white;
     width: 140px;
     height: 50px;
+    border-radius: 15px;
 }
 
 table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing:0 15px ;
 }
 
 td {
     text-align: center;
+    padding: 5px;
+}
+
+tr > td:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+tr > td:last-child {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
