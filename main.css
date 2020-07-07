@@ -20,6 +20,10 @@ header {
   color: whitesmoke;
 }
 
+h1 {
+  color: #696f8c;
+}
+
 header h1 {
   margin: 0;
   color: whitesmoke;
@@ -56,10 +60,6 @@ select {
 
 #submitButton {
   background-color: #ce9ec4;
-}
-
-h1 {
-  color: #696f8c;
 }
 
 th {

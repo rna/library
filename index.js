@@ -1,32 +1,61 @@
+const myLibrary = [];
+
+// Delete a Book
+function deleteBook(i, x) {
+  const index = myLibrary.findIndex((e) => e.slno === i);
+  myLibrary.splice(index, 1);
+  const table = x.parentNode.parentNode.parentNode;
+  const row = x.parentNode.parentNode.rowIndex;
+
+  table.deleteRow(row);
+}
+
+function readstat(i, r) {
+  const index = myLibrary.findIndex((e) => e.slno === i);
+  const row = r.parentNode.parentNode.rowIndex;
+
+  if (r.innerHTML === 'Unread') {
+    r.innerHTML = 'Read';
+    myLibrary[
+      index
+    ].readStatus = `<button onclick="javascript:readstat(${row},this)">Read</button>`;
+  } else {
+    r.innerHTML = 'Unread';
+    myLibrary[
+      index
+    ].readStatus = `<button onclick="javascript:readstat(${row},this)">Unread</button>`;
+  }
+}
+
 window.onload = function () {
   // create table
   function generateTableHead(table, data) {
-    let thead = table.createTHead();
-    let row = thead.insertRow();
-    row.id = "tableHeading";
+    const thead = table.createTHead();
+    const row = thead.insertRow();
+    row.id = 'tableHeading';
 
-    for (let key of data) {
-      let th = document.createElement("th");
-      let text = document.createTextNode(key);
+    for (const key of data) {
+      const th = document.createElement('th');
+      const text = document.createTextNode(key);
       row.appendChild(th);
       th.appendChild(text);
     }
   }
 
   function generateTable(table, data) {
-    for (let element of data) {
-      let row = table.insertRow();
-      for (key in element) {
-        let cell = row.insertCell();
-        let text = document.createTextNode(element[key]);
+    for (const element of data) {
+      const row = table.insertRow();
+      for (const key in element) {
+        const cell = row.insertCell();
+        const text = document.createTextNode(element[key]);
         cell.appendChild(text);
       }
     }
   }
 
   function displayTable() {
-    let table = document.querySelector("table");
-    let headerData = ["Sl.no", "Title", "Author", "Pages", "Status", "Action"];
+    const table = document.querySelector('table');
+    const headerData = ['Sl.no', 'Title', 'Author', 'Pages', 'Status', 'Action'];
 
     generateTableHead(table, headerData);
     generateTable(table, myLibrary);
@@ -45,75 +74,60 @@ window.onload = function () {
   }
 
   // New Book Form Generation
-  let button = document.getElementById("newBook");
+  const button = document.getElementById('newBook');
 
-  button.addEventListener("click", function () {
-    form = document.createElement("form");
-    form.name = "newBookForm";
-    form.id = "newBookForm";
+  button.addEventListener('click', () => {
+    const form = document.createElement('form');
+    form.name = 'newBookForm';
+    form.id = 'newBookForm';
 
-    title_field = document.createElement("input");
-    title_field.type = "text";
-    title_field.placeholder = "Enter Book Title";
-    title_field.name = "title";
-    title_field.id = "title";
-    form.appendChild(title_field);
+    const titleField = document.createElement('input');
+    titleField.type = 'text';
+    titleField.placeholder = 'Enter Book Title';
+    titleField.name = 'title';
+    titleField.id = 'title';
+    form.appendChild(titleField);
 
-    author_field = document.createElement("input");
-    author_field.type = "text";
-    author_field.placeholder = "Enter Author name";
-    author_field.name = "author";
-    author_field.id = "author";
-    form.appendChild(author_field);
+    const authorField = document.createElement('input');
+    authorField.type = 'text';
+    authorField.placeholder = 'Enter Author name';
+    authorField.name = 'author';
+    authorField.id = 'author';
+    form.appendChild(authorField);
 
-    pages_field = document.createElement("input");
-    pages_field.type = "text";
-    pages_field.placeholder = "Enter No of Pages";
-    pages_field.name = "pages";
-    pages_field.id = "pages";
-    form.appendChild(pages_field);
+    const pagesField = document.createElement('input');
+    pagesField.type = 'text';
+    pagesField.placeholder = 'Enter No of Pages';
+    pagesField.name = 'pages';
+    pagesField.id = 'pages';
+    form.appendChild(pagesField);
 
-    read_field = document.createElement("select");
-    read_option1 = document.createElement("option");
-    read_option2 = document.createElement("option");
-    read_option1.appendChild(document.createTextNode("Read"));
-    read_option1.value = "Read";
-    read_option2.appendChild(document.createTextNode("Unread"));
-    read_option2.value = "Unread";
-    read_field.appendChild(read_option1);
-    read_field.appendChild(read_option2);
-    read_field.name = "read status";
-    read_field.id = "readStatus";
-    form.appendChild(read_field);
+    const readField = document.createElement('select');
+    const readOption1 = document.createElement('option');
+    const readOption2 = document.createElement('option');
+    readOption1.appendChild(document.createTextNode('Read'));
+    readOption1.value = 'Read';
+    readOption2.appendChild(document.createTextNode('Unread'));
+    readOption2.value = 'Unread';
+    readField.appendChild(readOption1);
+    readField.appendChild(readOption2);
+    readField.name = 'read status';
+    readField.id = 'readStatus';
+    form.appendChild(readField);
 
-    submit_button = document.createElement("input");
-    submit_button.type = "submit";
-    submit_button.value = "Add Book";
-    submit_button.id = "submitButton";
-    form.appendChild(submit_button);
+    const submitButton = document.createElement('input');
+    submitButton.type = 'submit';
+    submitButton.value = 'Add Book';
+    submitButton.id = 'submitButton';
+    form.appendChild(submitButton);
 
-    document.getElementById("newBookForm").appendChild(form);
-  });
-
-  // Add Book to Library
-  let form = document.getElementById("newBookForm");
-  form.addEventListener("submit", function (e) {
-    const slno = myLibrary.length + 1;
-    const title = document.getElementById("title").value;
-    const author = document.getElementById("author").value;
-    const pages = document.getElementById("pages").value;
-    const readStatus = document.getElementById("readStatus").value;
-    let newbook = new Book(slno, title, author, pages, readStatus);
-    myLibrary.push(newbook);
-    addBooktoTable(newbook);
-
-    e.preventDefault();
+    document.getElementById('newBookForm').appendChild(form);
   });
 
   // Display book in table
   function addBooktoTable(book) {
-    let table = document.querySelector("table");
-    let row = table.insertRow();
+    const table = document.querySelector('table');
+    const row = table.insertRow();
 
     row.innerHTML = `
         <td>${book.slno}</td>
@@ -125,42 +139,19 @@ window.onload = function () {
         `;
     table.appendChild(row);
   }
+
+  // Add Book to Library
+  const form = document.getElementById('newBookForm');
+  form.addEventListener('submit', (e) => {
+    const slno = myLibrary.length + 1;
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+    const readStatus = document.getElementById('readStatus').value;
+    const newbook = new Book(slno, title, author, pages, readStatus);
+    myLibrary.push(newbook);
+    addBooktoTable(newbook);
+
+    e.preventDefault();
+  });
 };
-
-let myLibrary = [
-  // {
-  //   slno: 1,
-  //   title: "Alchemist",
-  //   author: "Paulo Coehlo",
-  //   pages: 182,
-  //   readStatus: "unread",
-  //   action: "Delete",
-  // }
-];
-
-// Delete a Book
-function deleteBook(i, x) {
-  index = myLibrary.findIndex((e) => e.slno == i);
-  myLibrary.splice(index, 1);
-  let table = x.parentNode.parentNode.parentNode;
-  let row = x.parentNode.parentNode.rowIndex;
-
-  table.deleteRow(row);
-}
-
-function readstat(i, r) {
-  let index = myLibrary.findIndex((e) => e.slno == i);
-  let row = r.parentNode.parentNode.rowIndex;
-
-  if (r.innerHTML == "Unread") {
-    r.innerHTML = "Read";
-    myLibrary[
-      index
-    ].readStatus = `<button onclick="javascript:readstat(${row},this)">Read</button>`;
-  } else {
-    r.innerHTML = "Unread";
-    myLibrary[
-      index
-    ].readStatus = `<button onclick="javascript:readstat(${row},this)">Unread</button>`;
-  }
-}
