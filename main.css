@@ -36,3 +36,27 @@ body {
 #submitButton {
     background-color: #ce9ec4;
 }
+
+h1 {
+    color: #696f8c;
+}
+
+th {
+    font-size: 14px;
+    width: 140px;
+    background-color: #f2eefc;
+}
+
+tr {
+    background-color: white;
+    width: 140px;
+    height: 50px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    text-align: center;
+}

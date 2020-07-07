@@ -5,6 +5,7 @@ window.onload = function () {
   function generateTableHead(table, data) {
     let thead = table.createTHead();
     let row = thead.insertRow();
+    row.id = "tableHeading";
 
     for (let key of data) {
       let th = document.createElement("th");
