@@ -1,6 +1,4 @@
 window.onload = function () {
-
-
   // create table
   function generateTableHead(table, data) {
     let thead = table.createTHead();
@@ -36,7 +34,7 @@ window.onload = function () {
 
   displayTable();
 
-  // Book Prototype 
+  // Book Prototype
   function Book(slno, title, author, pages, readStatus) {
     this.slno = slno;
     this.title = title;
@@ -91,7 +89,7 @@ window.onload = function () {
     submit_button = document.createElement("input");
     submit_button.type = "submit";
     submit_button.value = "Add Book";
-    submit_button.id = "submitButton"
+    submit_button.id = "submitButton";
     form.appendChild(submit_button);
 
     document.getElementById("newBookForm").appendChild(form);
@@ -108,7 +106,7 @@ window.onload = function () {
     let newbook = new Book(slno, title, author, pages, readStatus);
     myLibrary.push(newbook);
     addBooktoTable(newbook);
-    
+
     e.preventDefault();
   });
 
@@ -141,8 +139,8 @@ let myLibrary = [
 ];
 
 // Delete a Book
-function deleteBook(i,x) {
-  index = myLibrary.findIndex(e => e.slno==i);
+function deleteBook(i, x) {
+  index = myLibrary.findIndex((e) => e.slno == i);
   myLibrary.splice(index, 1);
   let table = x.parentNode.parentNode.parentNode;
   let row = x.parentNode.parentNode.rowIndex;
@@ -151,15 +149,18 @@ function deleteBook(i,x) {
 }
 
 function readstat(i, r) {
-  let index = myLibrary.findIndex(e => e.slno==i);
+  let index = myLibrary.findIndex((e) => e.slno == i);
   let row = r.parentNode.parentNode.rowIndex;
 
   if (r.innerHTML == "Unread") {
     r.innerHTML = "Read";
-    myLibrary[index].readStatus = `<button onclick="javascript:readstat(${row},this)">Read</button>`;
+    myLibrary[
+      index
+    ].readStatus = `<button onclick="javascript:readstat(${row},this)">Read</button>`;
   } else {
     r.innerHTML = "Unread";
-    myLibrary[index].readStatus = `<button onclick="javascript:readstat(${row},this)">Unread</button>`;
+    myLibrary[
+      index
+    ].readStatus = `<button onclick="javascript:readstat(${row},this)">Unread</button>`;
   }
-  console.log(myLibrary)
 }
