@@ -1,6 +1,7 @@
 window.onload = function () {
-  /* create table */
 
+
+  // create table
   function generateTableHead(table, data) {
     let thead = table.createTHead();
     let row = thead.insertRow();
@@ -34,12 +35,13 @@ window.onload = function () {
 
   displayTable();
 
+  // Book Prototype 
   function Book(slno, title, author, pages, readStatus) {
     this.slno = slno;
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.readStatus = `<button onclick="javascript:readstat(this)">${readStatus}</button>`;
+    this.readStatus = `<button onclick="javascript:readstat(${slno},this)">${readStatus}</button>`;
     this.action = `<button onclick="javascript:deleteBook(${slno},this)">X</button>`;
   }
 
@@ -104,7 +106,7 @@ window.onload = function () {
     let newbook = new Book(slno, title, author, pages, readStatus);
     myLibrary.push(newbook);
     addBooktoTable(newbook);
-    console.log(myLibrary);
+    
     e.preventDefault();
   });
 
@@ -146,10 +148,16 @@ function deleteBook(i,x) {
   table.deleteRow(row);
 }
 
-function readstat(r) {
-  if (r.innerHTML == "unread") {
-    r.innerHTML = "read";
+function readstat(i, r) {
+  let index = myLibrary.findIndex(e => e.slno==i);
+  let row = r.parentNode.parentNode.rowIndex;
+
+  if (r.innerHTML == "Unread") {
+    r.innerHTML = "Read";
+    myLibrary[index].readStatus = `<button onclick="javascript:readstat(${row},this)">Read</button>`;
   } else {
-    r.innerHTML = "unread";
+    r.innerHTML = "Unread";
+    myLibrary[index].readStatus = `<button onclick="javascript:readstat(${row},this)">Unread</button>`;
   }
+  console.log(myLibrary)
 }
