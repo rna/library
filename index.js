@@ -90,6 +90,7 @@ window.onload = function () {
     submit_button = document.createElement("input");
     submit_button.type = "submit";
     submit_button.value = "Add Book";
+    submit_button.id = "submitButton"
     form.appendChild(submit_button);
 
     document.getElementById("newBookForm").appendChild(form);
