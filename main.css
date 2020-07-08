@@ -98,12 +98,12 @@ tr > td:last-child {
 .popup {
   margin: 0;
   padding: 0;
-  background: rgba(0,0,0,0.6);
-  width:100vw;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100vw;
   height: 100vw;
   position: absolute;
   left: 0;
-  top:0;
+  top: 0;
   display: none;
   justify-content: center;
   align-items: center;
@@ -122,6 +122,6 @@ tr > td:last-child {
 #close {
   position: absolute;
   top: 5px;
-  right:5px;
+  right: 5px;
   background-color: #f07989;
 }
