@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-restricted-syntax */
 const myLibrary = [];
 
@@ -99,7 +100,7 @@ button.addEventListener('click', () => {
   form.appendChild(authorField);
 
   const pagesField = document.createElement('input');
-  pagesField.type = 'text';
+  pagesField.type = 'number';
   pagesField.placeholder = 'Enter No of Pages';
   pagesField.name = 'pages';
   pagesField.id = 'pages';
@@ -156,6 +157,28 @@ function addBooktoTable(book) {
   table.appendChild(row);
 }
 
+// form validation
+function validate() {
+  if (document.newBookForm.title.value === '') {
+    alert('Please provide a title!');
+    document.newBookForm.title.focus();
+    return false;
+  }
+
+  if (document.newBookForm.author.value === '') {
+    alert('Please provide an author name!');
+    document.newBookForm.author.focus();
+    return false;
+  }
+
+  if (document.newBookForm.pages.value < 1 || null) {
+    alert('Please provide number of pages!');
+    document.newBookForm.pages.focus();
+    return false;
+  }
+  return true;
+}
+
 // Add Book to Library
 const form = document.getElementById('newBookForm');
 form.addEventListener('submit', (e) => {
@@ -165,8 +188,9 @@ form.addEventListener('submit', (e) => {
   const pages = document.getElementById('pages').value;
   const readStatus = document.getElementById('readStatus').value;
   const newbook = new Book(slno, title, author, pages, readStatus);
-  myLibrary.push(newbook);
-  addBooktoTable(newbook);
-
+  if (validate() === true) {
+    myLibrary.push(newbook);
+    addBooktoTable(newbook);
+  }
   e.preventDefault();
 });
