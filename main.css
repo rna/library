@@ -124,4 +124,5 @@ tr > td:last-child {
   top: 5px;
   right: 5px;
   background-color: #f07989;
+  cursor: pointer;
 }

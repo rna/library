@@ -134,7 +134,7 @@ button.addEventListener('click', () => {
   document.getElementById('close').addEventListener('click', () => {
     document.querySelector('.popup').style.display = 'none';
   });
-});
+}, { once: true });
 
 document.getElementById('newBook').addEventListener('click', () => {
   document.querySelector('.popup').style.display = 'flex';
