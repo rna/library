@@ -94,3 +94,34 @@ tr > td:last-child {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
+
+.popup {
+  margin: 0;
+  padding: 0;
+  background: rgba(0,0,0,0.6);
+  width:100vw;
+  height: 100vw;
+  position: absolute;
+  left: 0;
+  top:0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  height: 60px;
+  width: 840px;
+  position: absolute;
+  top: 200px;
+  background: whitesmoke;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+#close {
+  position: absolute;
+  top: 5px;
+  right:5px;
+  background-color: #f07989;
+}
