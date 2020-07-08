@@ -1,6 +1,8 @@
+/* eslint-disable no-restricted-syntax */
 const myLibrary = [];
 
 // Delete a Book
+// eslint-disable-next-line no-unused-vars
 function deleteBook(i, x) {
   const index = myLibrary.findIndex((e) => e.slno === i);
   myLibrary.splice(index, 1);
@@ -10,6 +12,7 @@ function deleteBook(i, x) {
   table.deleteRow(row);
 }
 
+// eslint-disable-next-line no-unused-vars
 function readstat(i, r) {
   const index = myLibrary.findIndex((e) => e.slno === i);
   const row = r.parentNode.parentNode.rowIndex;
@@ -27,7 +30,7 @@ function readstat(i, r) {
   }
 }
 
-window.onload = function () {
+window.onload = function displayHTML() {
   // create table
   function generateTableHead(table, data) {
     const thead = table.createTHead();
@@ -45,6 +48,7 @@ window.onload = function () {
   function generateTable(table, data) {
     for (const element of data) {
       const row = table.insertRow();
+      // eslint-disable-next-line guard-for-in
       for (const key in element) {
         const cell = row.insertCell();
         const text = document.createTextNode(element[key]);
@@ -69,8 +73,8 @@ window.onload = function () {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.readStatus = `<button onclick="javascript:readstat(${slno},this)">${readStatus}</button>`;
-    this.action = `<button onclick="javascript:deleteBook(${slno},this)">X</button>`;
+    this.readStatus = `<button onclick="javascript:readstat(${slno}, this)">${readStatus}</button>`;
+    this.action = `<button onclick="javascript:deleteBook(${slno}, this)">X</button>`;
   }
 
   // New Book Form Generation
